@@ -127,6 +127,11 @@ public class ImageComparison {
      */
     private boolean fillExcludedRectangles = false;
 
+     /**
+     * Flag for filling excluded rectangles.
+     */
+    private boolean annotateEnabled = false;
+
     /**
      * Sets the opacity percentage of the fill of excluded rectangles. 0.0 means completely transparent and 100.0 means completely opaque.
      */
@@ -506,12 +511,24 @@ public class ImageComparison {
      * @param rectangles the collection of the {@link Rectangle}.
      */
     private void draw(Graphics2D graphics, List<Rectangle> rectangles) {
+       
         rectangles.forEach(rectangle -> graphics.drawRect(
                 rectangle.getMinPoint().x,
                 rectangle.getMinPoint().y,
                 rectangle.getWidth() - 1,
                 rectangle.getHeight() - 1)
         );
+
+        if(annotateEnabled){
+            int index = 1;
+            for (Rectangle rect : rectangles) {
+                // New code to annotate the rectangle
+                String label = String.valueOf(index++);
+                graphics.setFont(new Font("Arial", Font.BOLD, 16));
+                graphics.setColor(Color.BLUE);
+                graphics.drawString(label, rect.x, rect.y - 5);
+            }
+        }
     }
 
     /**
@@ -700,6 +717,12 @@ public class ImageComparison {
     public boolean isFillExcludedRectangles() {
         return this.fillExcludedRectangles;
     }
+
+    
+public ImageComparison setAnnotateEnabled(boolean annotateEnabled) {
+    this.annotateEnabled = annotateEnabled;
+    return this;
+}
 
     public double getPercentOpacityExcludedRectangles() {
         return this.percentOpacityExcludedRectangles;
