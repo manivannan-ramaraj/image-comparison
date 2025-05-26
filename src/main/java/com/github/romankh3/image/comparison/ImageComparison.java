@@ -526,7 +526,7 @@ public class ImageComparison {
                 String label = String.valueOf(index++);
                 graphics.setFont(new Font("Arial", Font.BOLD, 16));
                 graphics.setColor(Color.BLUE);
-                graphics.drawString(label, rect.x, rect.y - 5);
+                graphics.drawString(label, rectangle.getMinPoint().x, rectangle.getMinPoint().y - 5);
             }
         }
     }
